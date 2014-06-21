@@ -17,6 +17,7 @@ namespace SteamFind
 {
     public partial class SteamFind : Form
     {
+        //fix removed seeds getting added again
         private List<string> result = new List<string>(), totalSeeds = new List<string>(), seeds = new List<string>(); //savefile
         
         public SteamFind()
@@ -70,16 +71,38 @@ namespace SteamFind
                     {
                         string testFriend = possibleSeeds.ElementAt(friends);
 
-                        if (Search(testFriend, ".friendBlockLinkOverlay").Count == 0)
+                        if (Search(testFriend, ".friendBlockLinkOverlay").Count != 0)
                         {
-                            possibleSeeds.RemoveAt(friends);
-                            friends--;
+                            if (rbtnFast.Checked && totalSeeds.ElementAt(totalSeeds.Count - 1) == testFriend && totalSeeds.Count > seeds.Count)
+                            {
+                                seeds.Add(testFriend);
+                                lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
+                                continue;
+                            }
+                            else
+                            {
+                                if (!rbtnFast.Checked)
+                                    if (hasFlag)
+                                    {
+                                        if(totalSeeds.GetRange(0,totalSeeds.Count - 2).Contains(testFriend))
+                                        seeds.Add(testFriend);
+                                        lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
+                                        continue;
+                                    }
+                                    else if(rbtnBest.Checked)
+                                    {
+                                        if (hasFriends)
+                                        {
+                                            seeds.Add(testFriend);
+                                            lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
+                                            continue;
+                                        }
+                                    }
+                            }
                         }
-                        else //add the good ones to the seeds
-                        {
-                            seeds.Add(testFriend);
-                            lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
-                        }
+                        possibleSeeds.RemoveAt(friends);
+                        friends--;
+
                         if (stop)
                             break;
                     }
@@ -106,13 +129,15 @@ namespace SteamFind
             stop = false;
         }
 
+        bool hasFlag, hasFriends;
         private List<string> Search(string seed, string selector = ".profile_flag")
         {
             List<string> link = new List<string>();
-            bool hasFlag;
             var web = new HtmlWeb();
             var document = web.Load(seed);
             var page = document.DocumentNode;
+
+            hasFriends = false;
 
             GetSize(page);
             GetChecks();
@@ -120,12 +145,14 @@ namespace SteamFind
             hasFlag = GetInfo(seed, page);
 
             if (!rbtnBest.Checked)
-                if (!hasFlag)
-                    return link;
+                if (targetCountry != "")
+                    if (!hasFlag)
+                        return link;
 
             foreach (var item in page.QuerySelectorAll(selector))
             {
                 link.Add(item.Attributes.AttributesWithName("href").First().Value);
+                hasFriends = true;
             }
 
             return link;
@@ -143,7 +170,6 @@ namespace SteamFind
                 if (targetCountry == "")
                 {
                     Check(seed, targetCountry, IsActive(page), gameList, name);
-                    return true;
                 }
             }
             else
