@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<InitFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AutoScroll>false</AutoScroll>
+  <AutoSave>false</AutoSave>
+  <AutoLoad>false</AutoLoad>
+</InitFile>
