@@ -15,4 +15,4 @@ You can leave Country Code empty to search for all nationalities and you can als
 
 The starting seed needs to be a public profile with friends or else you won't get anywhere. Try and find someone from the country or with the game your searching for with the steam search feature to get the seed.
 
-This program uses FizzlerEx? which uses Fizzler and the HtmlAgilityPack?.
+This program uses FizzlerEx which uses Fizzler and the HtmlAgilityPack.
