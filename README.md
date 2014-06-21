@@ -1,6 +1,5 @@
 SteamFind
 =========
-Made by Ivan Martell.
 
 You can filter by games and country.
 
