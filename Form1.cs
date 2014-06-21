@@ -46,6 +46,7 @@ namespace SteamFind
                 LoadUp();
         }
 
+        private List<string> pastSeeds = new List<string>();
         private string currentSeed; //savefile
         private void StartSearch(string seed)
         {
@@ -53,10 +54,11 @@ namespace SteamFind
             {
                 List<string> possibleSeeds = null;
 
-                if (!totalSeeds.Contains(seed))
+                if (seeds.Count == 0)
                 {
                     seeds.Add(seed);
                     totalSeeds.Add(seed);
+                    pastSeeds.Add(seed);
                 }
 
                 while (seeds.Count != 0)
@@ -69,14 +71,15 @@ namespace SteamFind
                     //curate for profiles with friends
                     for (int friends = 0; friends < possibleSeeds.Count; friends++)
                     {
+                        if (stop)
+                            break;
                         string testFriend = possibleSeeds.ElementAt(friends);
 
                         if (Search(testFriend, ".friendBlockLinkOverlay").Count != 0)
                         {
                             if (rbtnFast.Checked && totalSeeds.ElementAt(totalSeeds.Count - 1) == testFriend && totalSeeds.Count > seeds.Count)
                             {
-                                seeds.Add(testFriend);
-                                lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
+                                AddSeed(testFriend);
                                 continue;
                             }
                             else
@@ -84,17 +87,17 @@ namespace SteamFind
                                 if (!rbtnFast.Checked)
                                     if (hasFlag)
                                     {
-                                        if(totalSeeds.GetRange(0,totalSeeds.Count - 2).Contains(testFriend))
-                                        seeds.Add(testFriend);
-                                        lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
-                                        continue;
+                                        if (!pastSeeds.Contains(testFriend))
+                                        {
+                                            AddSeed(testFriend);
+                                            continue;
+                                        }
                                     }
-                                    else if(rbtnBest.Checked)
+                                    else if (rbtnBest.Checked)
                                     {
                                         if (hasFriends)
                                         {
-                                            seeds.Add(testFriend);
-                                            lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
+                                            AddSeed(testFriend);
                                             continue;
                                         }
                                     }
@@ -102,9 +105,6 @@ namespace SteamFind
                         }
                         possibleSeeds.RemoveAt(friends);
                         friends--;
-
-                        if (stop)
-                            break;
                     }
 
                     if (stop)
@@ -120,13 +120,22 @@ namespace SteamFind
                     Alert(ex.StackTrace);
                     seeds.RemoveAt(0);
                     totalSeeds.RemoveAt(0);
-                    Stop();
-                    if (InvokeRequired)
-                        btnStart.Invoke((Action)(() => btnStart.Text = "Start"));
                 }
                 catch { }
             }
+
+            Stop();
+            if (InvokeRequired)
+                btnStart.Invoke((Action)(() => btnStart.Text = "Start"));
+            Alert("Search Finished");
             stop = false;
+        }
+
+        private void AddSeed(string testFriend)
+        {
+            pastSeeds.Add(testFriend);
+            seeds.Add(testFriend);
+            lblS.Invoke((Action)(() => lblS.Text = seeds.Count.ToString()));
         }
 
         bool hasFlag, hasFriends;
