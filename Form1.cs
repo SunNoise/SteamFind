@@ -115,19 +115,21 @@ namespace SteamFind
             }
             catch (Exception ex)
             {
-                try
-                {
-                    Alert(ex.StackTrace);
-                    seeds.RemoveAt(0);
-                    totalSeeds.RemoveAt(0);
-                }
-                catch { }
+                seeds.RemoveAt(0);
+                totalSeeds.RemoveAt(0);
+                Alert(ex.StackTrace);
             }
 
-            Stop();
-            if (InvokeRequired)
-                btnStart.Invoke((Action)(() => btnStart.Text = "Start"));
-            Alert("Search Finished");
+            try
+            {
+                Stop();
+                if (InvokeRequired)
+                    btnStart.Invoke((Action)(() => btnStart.Text = "Start"));
+                Alert("Search Finished");
+            }
+            catch { }
+
+            
             stop = false;
         }
 
