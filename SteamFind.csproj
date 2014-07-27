@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm.cs" />
     <Compile Include="BinarySerialization.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DialogCenteringService.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveFile.cs" />
+    <Compile Include="UI.cs" />
     <Compile Include="XmlSerialization.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

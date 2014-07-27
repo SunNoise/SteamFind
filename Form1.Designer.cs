@@ -419,38 +419,38 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dGVResults;
+        internal System.Windows.Forms.DataGridView dGVResults;
         private System.Windows.Forms.Label lblCurrentSeed;
         private System.Windows.Forms.Label lblSeeds;
-        private System.Windows.Forms.Label lblCS;
-        private System.Windows.Forms.Label lblS;
+        internal System.Windows.Forms.Label lblCS;
+        internal System.Windows.Forms.Label lblS;
         private System.Windows.Forms.Label lblChecks;
-        private System.Windows.Forms.Label lblC;
+        internal System.Windows.Forms.Label lblC;
         private System.Windows.Forms.Label lblBandwidth;
-        private System.Windows.Forms.Label lblB;
-        private System.Windows.Forms.TextBox txtStartingSeed;
-        private System.Windows.Forms.Button btnStart;
+        internal System.Windows.Forms.Label lblB;
+        internal System.Windows.Forms.TextBox txtStartingSeed;
+        internal System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.TextBox txtCountry;
         private System.Windows.Forms.LinkLabel lblCountryCode;
         private System.Windows.Forms.LinkLabel lblApp;
         private System.Windows.Forms.TextBox txtApp;
-        private System.Windows.Forms.GroupBox gBSearch;
-        private System.Windows.Forms.RadioButton rbtnBest;
-        private System.Windows.Forms.RadioButton rbtnGood;
-        private System.Windows.Forms.RadioButton rbtnFast;
-        private System.Windows.Forms.CheckBox chkActive;
-        private System.Windows.Forms.CheckBox chkAutoScroll;
-        private System.Windows.Forms.GroupBox gBSearchOptions;
+        internal System.Windows.Forms.GroupBox gBSearch;
+        internal System.Windows.Forms.RadioButton rbtnBest;
+        internal System.Windows.Forms.RadioButton rbtnGood;
+        internal System.Windows.Forms.RadioButton rbtnFast;
+        internal System.Windows.Forms.CheckBox chkActive;
+        internal System.Windows.Forms.CheckBox chkAutoScroll;
+        internal System.Windows.Forms.GroupBox gBSearchOptions;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.BindingSource dataBindingSource;
+        internal System.Windows.Forms.BindingSource dataBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnNumberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnLinkDataGridViewTextBoxColumn;
-        private System.Windows.Forms.GroupBox gBSaveLoad;
+        internal System.Windows.Forms.GroupBox gBSaveLoad;
         private System.Windows.Forms.CheckBox chkAutoSave;
         private System.Windows.Forms.CheckBox chkAutoLoad;
-        private System.Windows.Forms.Button btnClear;
+        internal System.Windows.Forms.Button btnClear;
     }
 }
 
